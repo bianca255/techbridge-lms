@@ -83,25 +83,51 @@ app.use('/api/certificates', certificateRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Root route - Welcome message
+// Root route - Welcome HTML page
 app.get('/', (req, res) => {
-  res.json({
-    status: 'success',
-    message: 'Welcome to TechBridge LMS API',
-    version: '1.0.0',
-    documentation: {
-      health: '/api/health',
-      authentication: '/api/auth',
-      courses: '/api/courses',
-      lessons: '/api/lessons',
-      quizzes: '/api/quizzes',
-      assignments: '/api/assignments',
-      forums: '/api/forums',
-      certificates: '/api/certificates'
-    },
-    repository: 'https://github.com/bianca255/techbridge-lms',
-    timestamp: new Date().toISOString()
-  });
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>TechBridge LMS - Learning Management System</title>
+      <meta charset="UTF-8">
+      <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .header { text-align: center; color: #2c3e50; }
+        .status { color: #27ae60; font-weight: bold; }
+        .api-list { background: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .endpoint { margin: 10px 0; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <h1>🎓 TechBridge LMS</h1>
+        <h2>Learning Management System for African Children</h2>
+        <p class="status">✅ API Server Running Successfully</p>
+      </div>
+      
+      <div class="api-list">
+        <h3>📋 Available API Endpoints:</h3>
+        <div class="endpoint">🔍 <a href="/api/health">Health Check</a> - Service status</div>
+        <div class="endpoint">🔐 <strong>/api/auth</strong> - Authentication & registration</div>
+        <div class="endpoint">📚 <strong>/api/courses</strong> - Course management</div>
+        <div class="endpoint">📝 <strong>/api/lessons</strong> - Lesson content</div>
+        <div class="endpoint">❓ <strong>/api/quizzes</strong> - Interactive quizzes</div>
+        <div class="endpoint">📋 <strong>/api/assignments</strong> - Assignment system</div>
+        <div class="endpoint">💬 <strong>/api/forums</strong> - Discussion forums</div>
+        <div class="endpoint">🏆 <strong>/api/certificates</strong> - Achievement certificates</div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <p>📂 <a href="https://github.com/bianca255/techbridge-lms" target="_blank">View Source Code on GitHub</a></p>
+        <p><strong>Version:</strong> 1.0.0 | <strong>Status:</strong> Production Ready</p>
+        <p><em>Bridging the Digital Divide in Africa 🌍</em></p>
+      </div>
+    </body>
+    </html>
+  `);
 });
 
 // 404 handler
