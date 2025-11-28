@@ -83,11 +83,37 @@ app.use('/api/certificates', certificateRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Root route - Welcome message
+app.get('/', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'Welcome to TechBridge LMS API',
+    version: '1.0.0',
+    documentation: {
+      health: '/api/health',
+      authentication: '/api/auth',
+      courses: '/api/courses',
+      lessons: '/api/lessons',
+      quizzes: '/api/quizzes',
+      assignments: '/api/assignments',
+      forums: '/api/forums',
+      certificates: '/api/certificates'
+    },
+    repository: 'https://github.com/bianca255/techbridge-lms',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
     status: 'error',
-    message: 'Route not found'
+    message: 'Route not found',
+    availableEndpoints: {
+      root: '/',
+      health: '/api/health',
+      docs: 'See GitHub repository for full API documentation'
+    }
   });
 });
 
