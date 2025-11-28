@@ -65,6 +65,14 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/courses" element={<Courses />} />
+        <Route 
+          path="/courses/create" 
+          element={
+            <ProtectedRoute roles={['teacher', 'admin']}>
+              <TeacherDashboard />
+            </ProtectedRoute>
+          } 
+        />
         <Route path="/courses/:id" element={<CourseDetail />} />
         
         <Route 

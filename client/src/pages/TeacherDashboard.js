@@ -14,6 +14,13 @@ const TeacherDashboard = () => {
   });
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newCourse, setNewCourse] = useState({
+    title: '',
+    description: '',
+    category: 'computer-basics',
+    level: 'beginner'
+  });
 
   useEffect(() => {
     fetchTeacherData();
@@ -45,7 +52,20 @@ const TeacherDashboard = () => {
   };
 
   const handleCreateCourse = () => {
-    navigate('/courses/create');
+    setShowCreateModal(true);
+  };
+
+  const handleSubmitCourse = async (e) => {
+    e.preventDefault();
+    try {
+      await courseService.createCourse(newCourse);
+      alert('Course created successfully!');
+      setShowCreateModal(false);
+      setNewCourse({ title: '', description: '', category: 'computer-basics', level: 'beginner' });
+      fetchTeacherData();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Failed to create course');
+    }
   };
 
   const handleDeleteCourse = async (courseId) => {
@@ -199,6 +219,68 @@ const TeacherDashboard = () => {
           </div>
         </div>
       </div>
+
+      {showCreateModal && (
+        <div className="modal-overlay" onClick={() => setShowCreateModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Create New Course</h2>
+            <form onSubmit={handleSubmitCourse}>
+              <div className="form-group">
+                <label>Course Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={newCourse.title}
+                  onChange={(e) => setNewCourse({...newCourse, title: e.target.value})}
+                  placeholder="Enter course title"
+                />
+              </div>
+              <div className="form-group">
+                <label>Description *</label>
+                <textarea
+                  required
+                  value={newCourse.description}
+                  onChange={(e) => setNewCourse({...newCourse, description: e.target.value})}
+                  placeholder="Enter course description"
+                  rows="4"
+                />
+              </div>
+              <div className="form-group">
+                <label>Category *</label>
+                <select
+                  value={newCourse.category}
+                  onChange={(e) => setNewCourse({...newCourse, category: e.target.value})}
+                >
+                  <option value="computer-basics">Computer Basics</option>
+                  <option value="programming">Programming</option>
+                  <option value="web-development">Web Development</option>
+                  <option value="digital-literacy">Digital Literacy</option>
+                  <option value="mathematics">Mathematics</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Level *</label>
+                <select
+                  value={newCourse.level}
+                  onChange={(e) => setNewCourse({...newCourse, level: e.target.value})}
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+              <div className="modal-actions">
+                <button type="button" onClick={() => setShowCreateModal(false)} className="btn btn-secondary">
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Create Course
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

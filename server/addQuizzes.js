@@ -266,7 +266,8 @@ async function addQuizzes() {
         passingScore: quizData.passingScore,
         timeLimit: quizData.timeLimit,
         maxAttempts: 3,
-        randomizeQuestions: true
+        randomizeQuestions: true,
+        isPublished: true
       });
 
       console.log(`✅ Created quiz for: ${lesson.title} (Lesson ${lesson.order})`);
