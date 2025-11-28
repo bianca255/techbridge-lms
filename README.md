@@ -379,24 +379,34 @@ Full internationalization support:
 
 ## 🚢 Deployment
 
-### Frontend (Vercel)
-
-1. Push code to GitHub
-2. Import project in Vercel
-3. Set environment variable: `REACT_APP_API_URL`
-4. Deploy
-
-### Backend (Render)
+### Backend (Render.com)
 
 1. Push code to GitHub
 2. Create new Web Service in Render
-3. Connect repository
-4. Set environment variables (MongoDB URI, JWT_SECRET, etc.)
-5. Deploy
+3. Connect repository (select `server` directory as root)
+4. Set Build Command: `npm install`
+5. Set Start Command: `node src/server.js`
+6. Set environment variables:
+   - `MONGODB_URI` - Your MongoDB Atlas connection string
+   - `JWT_SECRET` - Your secure JWT secret
+   - `NODE_ENV=production`
+   - `CORS_ORIGIN` - Your frontend URL
+7. Deploy
 
-Configuration files included:
-- `client/vercel.json` - Vercel configuration
-- `render.yaml` - Render configuration
+### Frontend (Render.com Static Site)
+
+1. Create new Static Site in Render
+2. Connect same GitHub repository
+3. Set Root Directory: `client`
+4. Set Build Command: `npm install && npm run build`
+5. Set Publish Directory: `build`
+6. Set environment variable:
+   - `REACT_APP_API_URL` - Your backend API URL
+7. Deploy
+
+**Live URLs:**
+- Backend: https://techbridge-lms.onrender.com
+- Frontend: https://techbridge-lms-frontend.onrender.com
 
 ## 🔒 Security Features
 
@@ -500,5 +510,6 @@ For support, email support@techbridge.org or open an issue in the GitHub reposit
 ---
 
 Made with ❤️ for empowering children through education
-#   T r i g g e r   r e d e p l o y   -   1 1 / 2 8 / 2 0 2 5   1 3 : 4 0 : 0 8  
+#   T r i g g e r   r e d e p l o y   -   1 1 / 2 8 / 2 0 2 5   1 3 : 4 0 : 0 8 
+ 
  
