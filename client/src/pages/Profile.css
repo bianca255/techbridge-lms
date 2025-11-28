@@ -1,0 +1,144 @@
+.profile-page {
+  min-height: calc(100vh - 80px);
+  padding: 40px 0;
+  background: var(--light-color);
+}
+
+.profile-page h1 {
+  font-size: 32px;
+  color: var(--dark-color);
+  margin-bottom: 30px;
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+}
+
+.profile-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  height: fit-content;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.profile-header h2 {
+  font-size: 24px;
+  color: var(--dark-color);
+  margin-bottom: 5px;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.profile-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-stats .stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: var(--light-color);
+  border-radius: 8px;
+}
+
+.profile-stats .stat strong {
+  color: var(--dark-color);
+}
+
+.profile-stats .stat span {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.profile-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  font-size: 20px;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+}
+
+.info-display {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-item {
+  padding: 12px;
+  background: var(--light-color);
+  border-radius: 6px;
+}
+
+.info-item strong {
+  display: inline-block;
+  min-width: 100px;
+  color: var(--dark-color);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+}

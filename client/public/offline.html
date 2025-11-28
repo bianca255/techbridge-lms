@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechBridge - Offline</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+
+    .offline-container {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      max-width: 500px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .offline-icon {
+      font-size: 80px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-list {
+      text-align: left;
+      background: #f7fafc;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+
+    .feature-list h3 {
+      color: #667eea;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .feature-list ul {
+      list-style: none;
+    }
+
+    .feature-list li {
+      padding: 0.5rem 0;
+      color: #4a5568;
+    }
+
+    .feature-list li:before {
+      content: "✓ ";
+      color: #48bb78;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    .btn-retry {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      font-weight: 600;
+    }
+
+    .btn-retry:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .connection-status {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fff5f5;
+      border-left: 4px solid #f56565;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .connection-status.online {
+      background: #f0fff4;
+      border-left-color: #48bb78;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f56565;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot.online {
+      background: #48bb78;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .offline-container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📡</div>
+    <h1>You're Offline</h1>
+    <p>Don't worry! You can still access your cached lessons and continue learning.</p>
+
+    <div class="feature-list">
+      <h3>Available Offline:</h3>
+      <ul>
+        <li>Previously viewed lessons</li>
+        <li>Downloaded course materials</li>
+        <li>Your progress history</li>
+        <li>Cached quiz questions</li>
+      </ul>
+    </div>
+
+    <div class="connection-status" id="status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Checking connection...</span>
+    </div>
+
+    <button class="btn-retry" onclick="checkConnection()">
+      Try Reconnecting
+    </button>
+  </div>
+
+  <script>
+    function checkConnection() {
+      if (navigator.onLine) {
+        updateStatus(true);
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+      } else {
+        updateStatus(false);
+        alert('Still offline. Please check your internet connection.');
+      }
+    }
+
+    function updateStatus(isOnline) {
+      const status = document.getElementById('status');
+      const statusDot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+
+      if (isOnline) {
+        status.classList.add('online');
+        statusDot.classList.add('online');
+        statusText.textContent = 'Connection restored! Redirecting...';
+      } else {
+        status.classList.remove('online');
+        statusDot.classList.remove('online');
+        statusText.textContent = 'No internet connection detected';
+      }
+    }
+
+    // Auto-check connection status
+    window.addEventListener('online', () => {
+      updateStatus(true);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    });
+
+    window.addEventListener('offline', () => {
+      updateStatus(false);
+    });
+
+    // Initial check
+    checkConnection();
+  </script>
+</body>
+</html>
